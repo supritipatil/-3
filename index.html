@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: pink;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      animation: fadeIn 2s ease-in;
+    }
+    .container img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: none;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in;
+    }
+    .container p {
+      font-size: 1.4em;
+      color: #d63384;
+      margin-top: 10px;
+      display: none;
+      animation: fadeIn 2s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img id="photo1" src="https://supritipatil.github.io/-3/ours!!!.jpg" alt="Open this first">
+    <p id="msg1">Open this first 💕</p>
+
+    <img id="photo2" src="https://supritipatil.github.io/-3/meeee.jpg" alt="And abhi this">
+    <p id="msg2">Abhi bhi mood kharab hai? 🥺</p>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById("photo1").style.display = "block";
+      document.getElementById("msg1").style.display = "block";
+    }, 1000);
+
+    setTimeout(() => {
+      document.getElementById("photo2").style.display = "block";
+      document.getElementById("msg2").style.display = "block";
+    }, 4000);
+  </script>
+</body>
+</html>
