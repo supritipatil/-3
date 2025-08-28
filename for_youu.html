@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tereee liyeee!!!🩷🩷</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-y: auto;
+        }
+        .message-container { transition: transform 0.5s ease-in-out; }
+        .message-container:hover { transform: scale(1.05); }
+        .star {
+            position: absolute;
+            background: linear-gradient(45deg, #fceb9c, #ffe47a);
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; transform: scale(0.5) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        .heart { position: absolute; animation: pulse 2s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .bunny-pop { animation: pop-up 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+        @keyframes pop-up { from { transform: translateY(100%) scale(0.5); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+        .fade-in { animation: fade-in 1s forwards; opacity: 0; }
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .rose-grow { animation: rose-grow 1s forwards; transform: scale(0); transform-origin: bottom center; }
+        @keyframes rose-grow { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .photo-pop { animation: photo-pop 1s ease forwards; opacity: 0; transform: scale(0.8); }
+        @keyframes photo-pop { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .photo-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100; opacity: 0; transition: opacity 0.5s ease-in-out; pointer-events: none;
+        }
+        .photo-modal.active { opacity: 1; pointer-events: auto; }
+        .photo-modal-content {
+            position: relative; max-width: 90%; max-height: 90%; animation: modal-pop 0.3s ease forwards;
+        }
+        @keyframes modal-pop { from { transform: scale(0.8); opacity: 0.5; } to { transform: scale(1); opacity: 1; } }
+        .photo-modal img { border-radius: 1rem; max-width: 100%; max-height: 100%; object-fit: contain; }
+        .modal-close-btn {
+            position: absolute; top: 1rem; right: 1rem; background: rgba(255, 255, 255, 0.2);
+            color: white; border-radius: 50%; width: 2rem; height: 2rem; display: flex;
+            justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .modal-close-btn:hover { transform: rotate(90deg) scale(1.2); background: rgba(255, 100, 100, 0.8); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-500 to-indigo-700 min-h-screen flex items-center justify-center text-white p-4">
+    <audio autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_98e0bb7b69.mp3?filename=romantic-background-music-112199.mp3" type="audio/mpeg">
+    </audio>
+
+    <main class="w-full max-w-2xl bg-white bg-opacity-10 backdrop-filter backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-10 text-center relative overflow-hidden">
+        <div class="star" style="top: 10%; left: 5%; width: 10px; height: 10px; animation-delay: 0s;"></div>
+        <div class="star" style="top: 25%; right: 15%; width: 12px; height: 12px; animation-delay: 0.5s;"></div>
+        <div class="star" style="bottom: 20%; left: 20%; width: 8px; height: 8px; animation-delay: 1s;"></div>
+        <div class="star" style="top: 40%; left: 50%; width: 15px; height: 15px; animation-delay: 1.5s;"></div>
+        <div class="heart text-red-400 text-3xl" style="bottom: 15%; right: 10%; animation-delay: 0.8s;">❤️</div>
+        <div class="heart text-red-300 text-2xl" style="top: 10%; right: 40%; animation-delay: 1.2s;">💖</div>
+
+        <div id="initial-message" class="flex flex-col items-center space-y-6">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 font-['Pacifico'] leading-tight">Thinking of you.</h1>
+            <p class="text-lg md:text-xl font-light max-w-md mx-auto">Just a little something to brighten your day.</p>
+            <button id="surpriseButton" class="bg-pink-500 hover:bg-pink-600 transition-colors text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:-translate-y-1">
+                Click for a surprise!!!!🫶🏻🫶🏻🫶🏻
+            </button>
+        </div>
+
+        <div id="surprise-container" class="hidden flex-col items-center space-y-6">
+            <div id="bunny-container" class="transform scale-0 opacity-0 transition-transform duration-500">
+                <span class="text-6xl md:text-8xl">🐰</span>
+                <p id="bunny-text" class="mt-4 text-xl md:text-2xl font-semibold opacity-0 translate-y-4 transition-all duration-500">
+                    Heyyaaa this is for youuuu💗💗💗
+                </p>
+            </div>
+            <div id="rose-container" class="transform scale-0 opacity-0 transition-transform duration-500">
+                <span class="text-6xl md:text-8xl">🌹</span>
+            </div>
+
+            <div id="photos-container" class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-8 hidden">
+                <div class="relative rounded-xl shadow-lg overflow-hidden photo-pop cursor-pointer" data-photo-src="https://raw.githubusercontent.com/supritipatil/-3/main/ours!!!.jpg" data-photo-alt="Open this first!">
+                    <img src="https://raw.githubusercontent.com/supritipatil/-3/main/ours!!!.jpg" alt="Open this first!" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity">
+                        <p class="text-center p-2">Open this first!</p>
+                    </div>
+                </div>
+                <div class="relative rounded-xl shadow-lg overflow-hidden photo-pop cursor-pointer" data-photo-src="https://raw.githubusercontent.com/supritipatil/-3/main/meeee.jpg" data-photo-alt="And abh this one">
+                    <img src="https://raw.githubusercontent.com/supritipatil/-3/main/meeee.jpg" alt="And abh this one" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity">
+                        <p class="text-center p-2">And abh this one</p>
+                    </div>
+                </div>
+            </div>
+
+            <p id="final-message" class="hidden text-xl font-extrabold mt-6 text-pink-300 transform scale-0 opacity-0 transition-all duration-500">
+                abhi bhi mood kharab haii??
+            </p>
+        </div>
+
+        <p class="text-sm text-white text-opacity-70 mt-4">Try kiya galti hui to adjust kar lena</p>
+
+        <div id="photoModal" class="photo-modal">
+            <div class="photo-modal-content">
+                <button id="modalClose" class="modal-close-btn">&times;</button>
+                <img id="modalImage" src="" alt="">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const initialMessage = document.getElementById('initial-message');
+        const surpriseButton = document.getElementById('surpriseButton');
+        const surpriseContainer = document.getElementById('surprise-container');
+        const bunnyContainer = document.getElementById('bunny-container');
+        const bunnyText = document.getElementById('bunny-text');
+        const roseContainer = document.getElementById('rose-container');
+        const photosContainer = document.getElementById('photos-container');
+        const photos = document.querySelectorAll('#photos-container > div');
+        const finalMessage = document.getElementById('final-message');
+
+        const photoModal = document.getElementById('photoModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalCloseBtn = document.getElementById('modalClose');
+        let lastOpened = null;
+
+        function showSurprise() {
+            initialMessage.classList.add('hidden');
+            surpriseContainer.classList.remove('hidden');
+            surpriseContainer.classList.add('flex');
+
+            setTimeout(() => {
+                bunnyContainer.classList.add('bunny-pop');
+                setTimeout(() => {
+                    bunnyText.classList.add('fade-in');
+                    setTimeout(() => {
+                        roseContainer.classList.add('rose-grow');
+                        setTimeout(() => {
+                            photosContainer.classList.remove('hidden');
+                            photos.forEach(photo => photo.classList.add('photo-pop'));
+                        }, 1500);
+                    }, 800);
+                }, 100);
+            });
+        }
+
+        function openPhotoModal(src, alt, index) {
+            modalImage.src = src;
+            modalImage.alt = alt;
+            photoModal.classList.add('active');
+            lastOpened = index;
+        }
+
+        function closePhotoModal() {
+            photoModal.classList.remove('active');
+            if (lastOpened === photos.length - 1) {
+                setTimeout(() => {
+                    finalMessage.classList.remove('hidden');
+                    finalMessage.style.opacity = 1;
+                    finalMessage.style.transform = 'scale(1)';
+                }, 400);
+            }
+        }
+
+        photos.forEach((photo, index) => {
+            photo.addEventListener('click', () => {
+                openPhotoModal(photo.dataset.photoSrc, photo.dataset.photoAlt, index);
+            });
+        });
+
+        modalCloseBtn.addEventListener('click', closePhotoModal);
+        surpriseButton.addEventListener('click', showSurprise);
+    </script>
+</body>
+</html>
